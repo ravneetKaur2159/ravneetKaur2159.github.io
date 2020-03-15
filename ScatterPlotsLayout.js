@@ -204,6 +204,7 @@ function setPopulationVsConfirmedCasesPlot(confirmedCasesPerCountry, totalPopula
                 .style("cursor", "pointer");
             
             d3.select(".country")
+                .style("opacity", "1")
                 .html(countriesList[index])
                 .style("left", tooltipPosLeft + "px")
                 .style("top", tooltipPosTop + "px");
@@ -216,8 +217,8 @@ function setPopulationVsConfirmedCasesPlot(confirmedCasesPerCountry, totalPopula
             .duration("150")
             .attr("r",17);
     
-            // tooltipElementCountries
-            //     .style("opacity", 0);
+            d3.select(".country")
+                .style("opacity", 0);
         });
     }, 2000);
 
@@ -374,8 +375,8 @@ function setGiniVsConfirmedCasesPlot(){
                 return yAxis(position[1][index])})
             .attr("r", 17)
             .attr("class", "eachCircleElement")
+            .attr("id", function(d, index){ return index})
             .style("fill", function(d, index){
-                console.log("index"+index);
                 return colorScaleGini(index)})
             .style("opacity", "0");
 
@@ -410,11 +411,12 @@ function setGiniVsConfirmedCasesPlot(){
         .duration(100).ease(d3.easeLinear).style("opacity", 1);
     
         setTimeout(function(){
-            d3.selectAll(".casesVersusGiniIndex").on("mouseover", function(d){
+            d3.selectAll(".eachCircleElement").on("mouseover", function(d){
                 // let colorFill = this.attributes.fill.value;
-                // let tooltipPosLeft = d3.mouse(this)[0]+151;
-                // let tooltipPosTop = d3.mouse(this)[1]+75;
                 // let countriesId = parseInt(this.attributes.id.value);
+                let tooltipPosLeft = d3.mouse(this)[0]+145;
+                let tooltipPosTop = d3.mouse(this)[1]+152;
+                let index = this.attributes.id.value;
         
                 d3.select(this)
                     .transition()
@@ -422,24 +424,24 @@ function setGiniVsConfirmedCasesPlot(){
                     .attr("r", 21)
                     .style("cursor", "pointer");
                 
-                // tooltipElementCountries
-                //     .html(countriesList[countriesId])
-                //     .style("background-color", colorFill)
-                //     .style("opacity", 1)
-                //     .style("left", tooltipPosLeft + "px")
-                //     .style("top", tooltipPosTop + "px");
-            });
+                d3.select(".country")
+                    .style("opacity", "1")
+                    .html(countriesArr[index])
+                    .style("left", tooltipPosLeft + "px")
+                    .style("top", tooltipPosTop + "px");
+    
+            }, 2000);
         
-            d3.selectAll(".casesVersusGiniIndex").on("mouseout", function(d){
+            d3.selectAll(".eachCircleElement").on("mouseout", function(d){
                 d3.select(this)
                 .transition()
                 .duration("150")
                 .attr("r",17);
         
-                // tooltipElementCountries
-                //     .style("opacity", 0);
+                d3.select(".country")
+                    .style("opacity", 0);
             });
-        }, 2000);
+        },1000);
 
 }
 
@@ -520,6 +522,7 @@ function setHealthVsConfirmedCasesPlot(){
                     return yAxis(position[1][index])})
                 .attr("r", 17)
                 .attr("class", "eachCircleElement")
+                .attr("id", function(d, index){ return index})
                 .style("fill", function(d, index){
                     console.log(index)
                     return colorScale(index)})
@@ -556,11 +559,10 @@ function setHealthVsConfirmedCasesPlot(){
             .duration(100).ease(d3.easeLinear).style("opacity", 1);
 
         setTimeout(function(){
-            d3.selectAll(".casesVersusHealth").on("mouseover", function(d){
-                // let colorFill = this.attributes.fill.value;
-                // let tooltipPosLeft = d3.mouse(this)[0]+151;
-                // let tooltipPosTop = d3.mouse(this)[1]+75;
-                // let countriesId = parseInt(this.attributes.id.value);
+            d3.selectAll(".eachCircleElement").on("mouseover", function(d){
+                let tooltipPosLeft = d3.mouse(this)[0]+145;
+                let tooltipPosTop = d3.mouse(this)[1]+152;
+                let index = this.attributes.id.value;
         
                 d3.select(this)
                     .transition()
@@ -568,24 +570,23 @@ function setHealthVsConfirmedCasesPlot(){
                     .attr("r", 21)
                     .style("cursor", "pointer");
                 
-                // tooltipElementCountries
-                //     .html(countriesList[countriesId])
-                //     .style("background-color", colorFill)
-                //     .style("opacity", 1)
-                //     .style("left", tooltipPosLeft + "px")
-                //     .style("top", tooltipPosTop + "px");
+                d3.select(".country")
+                    .style("opacity", "1")
+                    .html(countriesArr[index])
+                    .style("left", tooltipPosLeft + "px")
+                    .style("top", tooltipPosTop + "px");
             });
         
-            d3.selectAll(".casesVersusHealth").on("mouseout", function(d){
+            d3.selectAll(".eachCircleElement").on("mouseout", function(d){
                 d3.select(this)
                 .transition()
                 .duration("150")
                 .attr("r",17);
         
-                // tooltipElementCountries
-                //     .style("opacity", 0);
+                d3.select(".country")
+                    .style("opacity", 0);
             });
-        }, 2000);
+        }, 1000);
     
 }
 
@@ -639,6 +640,10 @@ function flushScatterPlots(){
     d3.select(".confirmedCases").attr("class", "material-icons confirmedCases");
     d3.select(".worldClass").attr("class", "material-icons worldClass");
 
+    d3.select(".yAxisContainer").style("display", "none");
+    d3.select(".xAxisContainer").style("display", "none");
+    d3.select(".tooltipScatter").style("display", "none");
+
     let allCircleElement = d3.selectAll(".eachCircleElement");
     let position = [];
     position[0] = [];
@@ -674,6 +679,10 @@ window.loadScatterPlots = function(){
     d3.select(".confirmedCases").attr("class", "material-icons confirmedCases");
     d3.select(".scatterIconClass").attr("class", "material-icons scatterIconClass selected");
     d3.select(".worldClass").attr("class", "material-icons worldClass");
+
+    d3.select(".yAxisContainer").style("display", "block");
+    d3.select(".xAxisContainer").style("display", "block");
+    d3.select(".tooltipScatter").style("display", "block");
 
     // clearHeatMaps();
     loadScatterPlotsFromScript();

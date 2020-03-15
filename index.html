@@ -17,7 +17,7 @@
     <script src="LinePlotLayout.js" charset="utf-8" type="module"></script>
 
     <div class="masterContainer">
-      <div class="buttonsContainer">
+      <div class="buttonsContainer" style="width:1295px;">
         <i id="confirmedCases" class="material-icons confirmedCases selected" onclick="navigator(event)" title="New Cases per Day">blur_linear</i> <!--onclick="loadHeatMaps()-->
         <i id="scatter" class="material-icons scatterIconClass" onclick="navigator(event)" title="Identifying At-Risk Countries">bubble_chart</i><!--onclick="loadScatterPlots()-->
         <i id="world" class="material-icons worldClass" onclick="navigator(event)" title="Spatial Analysis">language</i><!--onclick="loadLinePlots()-->
@@ -25,13 +25,20 @@
       <div class="ChartsContainer" style="position:absolute;">
         
         <div class="canvasContainer" style="position:relative;top:0;bottom:0;left:0;right:0;">
-          <div class="xAxisContainer"></div>
-          <div class="yAxisContainer" style="position:relative;left:0;"></div>
+          <div class="xAxisContainer" style="position:absolute;bottom:0;width:100%;text-align:center;">
+            <div class="controlButton" style="display:inline-block;width:20%;text-align:right;">
+              <a class="previous" onclick="prevAttribute()" style="padding:6%;margin-left:100%;">&#8249;</a>
+            </div>
+            <div class="currentAttribute" style="display:inline-block;width:42%;text-align:center;"></div>
+            <div class="controlButton" style="display:inline-block;width:20%;text-align:left;">
+              <a class="next" onclick="nextAttribute()" style="padding:6%;margin-right:100%;">&#8250;</a>
+            </div>
+            
+          </div>
+          <div class="yAxisContainer" style="top: 13%;left: -24%;display: block;"></div>
         </div>
         
-          <a class="previous" onclick="prevAttribute()">&#8249;</a>
-          <div class="currentAttribute"></div>
-          <a class="next" onclick="nextAttribute()">&#8250;</a>
+
         </div>
       </div>
     </div>

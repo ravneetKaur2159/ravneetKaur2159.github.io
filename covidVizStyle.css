@@ -52,8 +52,8 @@
 a {
     text-decoration: none;
     display: inline-block;
-    padding: 8px 16px;
-    margin-left: 20%;
+    /* padding: 8px 16px;
+    margin-left: 20%; */
     background-color: #fff6d5;
     font-size: x-large;
     color : #9f946e
@@ -126,16 +126,13 @@ a:hover {
     font-weight: bold;
     width: 60%;
     transform: rotate(270deg);
-    /* margin-left: 10%; */
     position: absolute;
-    margin-left: -26%;
-    margin-top: 36%;
     font-size:18px;
     color: #7e7657;
 }
 
-.yAxisContainer:hover{
+/* .yAxisContainer:hover{
     color : #645f4e;
     background-color:  #f1cf54;
     cursor : auto;
-}
+} */

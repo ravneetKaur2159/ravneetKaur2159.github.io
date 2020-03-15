@@ -2,6 +2,7 @@ import pandas as pd
 import datetime as dt
 import json
 from flask import Flask
+from statistics import mean
 
 app = Flask(__name__)
 per_day_per_country = {}
@@ -73,12 +74,17 @@ def get_total_population_per_country(write=False):
     countries_df = pd.read_excel("./WDVP Datasets.xlsx", sheet_name="what makes a 'good' government")
     countries_list = countries_df["indicator"][4:].to_list()
     total_population_list = countries_df["population"][4:].to_list()
+    mean_total_population = mean(total_population_list)
+    total_population_relative = []
 
     for index, each_country in enumerate(countries_list):
-        total_pop_per_country[each_country] = total_population_list[index]
+        total_pop_per_country[each_country] = (total_population_list[index] - mean_total_population)/1000000
+        total_population_relative.append((total_population_list[index] - mean_total_population)/1000000)
 
+    print(min(total_population_relative))
+    print(max(total_population_relative))
     if write:
-        with open("countries_population_dict.json", "w") as outfile:
+        with open("countries_population_dict_relative.json", "w") as outfile:
             outfile.write(json.dumps(total_pop_per_country))
     return total_pop_per_country
 
@@ -90,11 +96,21 @@ def get_total_cases_per_country(write = False):
             if not each_country in total_cases_per_country:
                 total_cases_per_country[each_country] = []
             total_cases_per_country[each_country].append(cases[1][index])
-
+    total_cases = []
+    total_cases_relative = []
     for each_country in total_cases_per_country:
-        total_cases_per_country[each_country] = total_cases_per_country[each_country][-1]
+        total_cases.append(total_cases_per_country[each_country][-1])
+        #total_cases_per_country[each_country] = total_cases_per_country[each_country][-1]
+    mean_cases = mean(total_cases)
+    for each_country in total_cases_per_country:
+        value = total_cases_per_country[each_country][-1] - mean_cases
+        total_cases_per_country[each_country] = value
+        total_cases_relative.append(value)
+
+    print(min(total_cases_relative))
+    print(max(total_cases_relative))
     if write:
-        with open("countries_total_cases_list.json", "w") as outfile:
+        with open("countries_total_cases_list_relative.json", "w") as outfile:
             outfile.write(json.dumps(total_cases_per_country))
     return(total_cases_per_country)
 
@@ -146,13 +162,13 @@ def get_stats():
 
 if __name__ == "__main__":
 
-    # getPerCountryPerDateConfirmedCases()
+    getPerCountryPerDateConfirmedCases()
     # #getTotalListOfCountries()
-    # get_total_population_per_country(True)
-    # get_total_cases_per_country()
+    get_total_population_per_country(True)
+    # get_total_cases_per_country(True)
     # get_gini_index_per_country(True)
     # get_health_expenditure_per_country(True)
-    get_stats()
+    # get_stats()
 
     # app.run(host='0.0.0.0', port=5000, debug=True)
 

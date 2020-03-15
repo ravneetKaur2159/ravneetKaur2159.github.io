@@ -68,7 +68,7 @@ function setupDom(){
                 .on("mouseover", mouseOver )
                 .on("mouseleave", mouseLeave )
                 .append("title")
-                .text(function(d){return d.properties.name + " "+data[d.properties.name]})
+                .text(function(d){return d.properties.name + " "+(data[d.properties.name] || 0)})
         });
     });
 
