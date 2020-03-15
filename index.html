@@ -1,63 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>Bootstrap Example</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width">
+  <title>nCovid-19 Visualizations</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="stylesheet" href="covidVizStyle.css">
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
+    <script src="HeatmapLayout.js" charset="utf-8" type="module"></script>
+    <script src="ScatterPlotsLayout.js" charset="utf-8" type="module"></script>
+    <script src="LinePlotLayout.js" charset="utf-8" type="module"></script>
 
-<div class="container mt-3">
-  <h2>How Qualified are Software Professionals?</h2>
-  <p>A Quantitative Comparison for US, China, Singapore and India</p>  
-  
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" href="#home">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#menu1">US versus China</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#menu2">China versus India</a>
-    </li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content border mb-3">
-    <div id="home" class="container tab-pane active"><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <div class="masterContainer">
+      <div class="buttonsContainer">
+        <i id="confirmedCases" class="material-icons confirmedCases selected" onclick="navigator(event)" title="New Cases per Day">blur_linear</i> <!--onclick="loadHeatMaps()-->
+        <i id="scatter" class="material-icons scatterIconClass" onclick="navigator(event)" title="Identifying At-Risk Countries">bubble_chart</i><!--onclick="loadScatterPlots()-->
+        <i id="world" class="material-icons worldClass" onclick="navigator(event)" title="Spatial Analysis">language</i><!--onclick="loadLinePlots()-->
+      </div>
+      <div class="ChartsContainer" style="position:absolute;">
+        
+        <div class="canvasContainer" style="position:relative;top:0;bottom:0;left:0;right:0;">
+          <div class="xAxisContainer"></div>
+          <div class="yAxisContainer" style="position:relative;left:0;"></div>
+        </div>
+        
+          <a class="previous" onclick="prevAttribute()">&#8249;</a>
+          <div class="currentAttribute"></div>
+          <a class="next" onclick="nextAttribute()">&#8250;</a>
+        </div>
+      </div>
     </div>
-    <div id="menu1" class="container tab-pane fade"><br>
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+    <div class="tooltipScatter">
+      <div class="country"></div>
+      <div class="xAttribute"></div>
+      <div class="yAttribute"></div>
     </div>
-    <div id="menu2" class="container tab-pane fade"><br>
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-  </div>
 
-</div>
+    <script>
+      function navigator(event){
+        let src = document.querySelector("i.selected").id;
+        let dest = event.target.id;
+        let flushNav = {
+          "confirmedCases": flushHeatMaps,
+          "scatter": flushScatterPlots,
+          "world": flushLinePlot
+        };
+        let loadNav = {
+          "confirmedCases": loadHeatMaps,
+          "scatter": loadScatterPlots,
+          "world": loadLinePlots
+        };
 
-<script>
-$(document).ready(function(){
-  $(".nav-tabs a").click(function(){
-    $(this).tab('show');
-  });
-  $('.nav-tabs a').on('shown.bs.tab', function(event){
-    var x = $(event.target).text();         // active tab
-    var y = $(event.relatedTarget).text();  // previous tab
-    $(".act span").text(x);
-    $(".prev span").text(y);
-  });
-});
-</script>
-
+        flushNav[src]();
+        loadNav[dest]();
+      }
+    </script>
 </body>
 </html>

@@ -1,0 +1,141 @@
+.canvasClass {
+    width : 1100px;
+    height : 500px;
+    /* background-color: red; */
+    border-radius: 25px;
+    margin: 60px;
+    margin-left: 125px;
+    border: 5px solid #faedbf;
+}
+
+.tooltipCountriesStyle {
+    padding : 5px;
+    color: white;
+    font-weight : bold;
+    font-family: sans-serif;
+    position: absolute;
+    border:none;
+}
+
+.tooltipCasesStyle{
+    margin-left : 12px;
+    padding : 5px;
+    color: white;
+    font-weight : bold;
+    font-family: sans-serif;
+    position: absolute;
+    border:none;
+    padding-left: 20px;
+}
+
+.tooltipCasesDatesStyle{
+    margin-left : 12px;
+    padding : 5px;
+    color: black;
+    background-color: white;
+    font-weight : bold;
+    font-family: sans-serif;
+    position: absolute;
+    border:none;
+    padding-left: 20px;
+}
+
+.tooltipScatter{
+    width:200px;
+    border:solid;
+}
+
+.country{
+    position: absolute;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    margin-left: 20%;
+    background-color: #fff6d5;
+    font-size: x-large;
+    color : #9f946e
+  }
+
+a:hover {
+    background-color: #b4ad52;
+    color: black;
+}
+
+.material-icons.scatterIconClass { 
+    font-size: 50px;
+    border-bottom: 5px solid transparent;
+    color: #827e6d;
+    /* margin-left: 48%; */
+}
+
+.material-icons.scatterIconClass:hover{ 
+    background-color: #f9ecbb;
+    border-bottom: 5px solid #f1cf54;
+    color: black;
+}
+
+.material-icons.scatterIconClass.selected { 
+    background-color: #f9ecbb;
+    border-bottom: 5px solid #f1cf54;
+    color: black;
+}
+
+
+.material-icons.confirmedCases { 
+    font-size: 56px;
+    border-bottom: 5px solid transparent;
+    margin-left: 40%;
+    color: #827e6d;
+}
+
+.material-icons.confirmedCases:hover { 
+    background-color: #f9ecbb;
+    border-bottom: 5px solid #f1cf54;
+    color: black;
+}
+
+.material-icons.confirmedCases.selected { 
+    background-color: #f9ecbb;
+    border-bottom: 5px solid #f1cf54;
+    color: black;
+}
+
+.material-icons.worldClass { 
+    font-size: 56px;
+    border-bottom: 5px solid transparent;
+    color: #827e6d;
+}
+
+.material-icons.worldClass:hover { 
+    background-color: #f9ecbb;
+    border-bottom: 5px solid #f1cf54;
+    color: black;
+}
+
+.material-icons.worldClass.selected { 
+    background-color: #f9ecbb;
+    border-bottom: 5px solid #f1cf54;
+    color: black;
+}
+
+.yAxisContainer{
+    font-family: sans-serif;
+    font-weight: bold;
+    width: 60%;
+    transform: rotate(270deg);
+    /* margin-left: 10%; */
+    position: absolute;
+    margin-left: -26%;
+    margin-top: 36%;
+    font-size:18px;
+    color: #7e7657;
+}
+
+.yAxisContainer:hover{
+    color : #645f4e;
+    background-color:  #f1cf54;
+    cursor : auto;
+}
