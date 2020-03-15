@@ -15,10 +15,15 @@ let canvas = d3.select(".canvasContainer")
 
 
 const newCasesColorScheme = {};
-newCasesColorScheme[10] = "#d8e1e7";
-newCasesColorScheme[100] = "#98b0c2";
-newCasesColorScheme[1000] = "#4e7387";
-newCasesColorScheme[10000] = "#002e41";
+newCasesColorScheme[10] = "#ffd1a9";
+newCasesColorScheme[50] = "#ff9e79";
+newCasesColorScheme[100] = "#fb6d4c";
+newCasesColorScheme[500] = "#c23b22";
+newCasesColorScheme[1000] = "#8a0000";
+newCasesColorScheme[5000] = "#580000";
+newCasesColorScheme[10000] = "#5b1647";
+
+
 let tooltipElementCountries, tooltipElementCases, tooltipElementCasesDates;
 let colorScale = d3.scaleSequential().domain([1,111]).interpolator(d3.interpolateMagma);
 
@@ -174,17 +179,26 @@ function drawNumberOfConfirmedCases(xStartPoint, yStartPoint,idStartIndex, confi
                                         if(newConfirmedCases<0){
                                             newConfirmedCases = 0;
                                         }
-                                        //console.log(newConfirmedCases);
-
+                                        console.log(newConfirmedCases);
+                                        let colorVal = "";
                                         if(newConfirmedCases<10){
-                                            return newCasesColorScheme[10];
-                                        }else if(newConfirmedCases>=10 && newCasesColorScheme<100){
-                                            return newCasesColorScheme[100];
-                                        }else if(newConfirmedCases>=100 && newCasesColorScheme<1000){
-                                            return newCasesColorScheme[1000];
-                                        }else if(newConfirmedCases>=1000){
-                                            return newCasesColorScheme[10000];
+                                            colorVal = newCasesColorScheme[10];
+                                        }else if(newConfirmedCases>=10 && newConfirmedCases<50){
+                                            colorVal = newCasesColorScheme[50];
+                                        }else if(newConfirmedCases>=50 && newConfirmedCases<100){
+                                            colorVal = newCasesColorScheme[100];
+                                        }else if(newConfirmedCases>=100 && newConfirmedCases<500){
+                                            colorVal = newCasesColorScheme[500];
+                                        }else if(newConfirmedCases>=500 && newConfirmedCases<1000){
+                                            colorVal = newCasesColorScheme[1000];
+                                        }else if(newConfirmedCases>=1000 && newConfirmedCases<5000){
+                                            colorVal = newCasesColorScheme[5000];
+                                        }else if(newConfirmedCases>=5000){
+                                            colorVal = newCasesColorScheme[10000];
                                         }
+
+                                        console.log(colorVal);
+                                        return colorVal;
                                     })
                                     .attr("id", function(d, index){
                                         newConfirmedCases = confirmedCasesPerCountryObj[countriesList[i]][index];
